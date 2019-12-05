@@ -62,7 +62,9 @@ Submission Strategy
 
 A majority of the steps in this pipeline must be run on every file in a batch individually. The array functionality of slurm sbatch scripts allow us to submit one job per file to run simultaneously. There are likely many ways to accomplish this, but I have chosen to use "todo" files to specify which files should be run.  
 
-Each submission script will have a "todo" file with one line per run. This most often contains the file name that will be used as input, but can also contain other arguments. Within the sbatch script, the array argument (`#SBATCH --array <values>`) specifies how many jobs to run. As an example, `#SBATCH --array 1-5` will submit 5 jobs. These will all share the same built-in variable `$SLURM_ARRAY_JOB_ID` and each will have a unique `$SLURM_ARRAY_TASK_ID` that ranges from 1 to 5.  
+Each submission script will have a "todo" file with one line per run. This most often contains the file name that will be used as input, but can also contain other arguments. To generate a textfile with a list of all files in the directory, change to the directory of interest and enter "dir > 20_bowtieTodo.txt". 
+
+Within the sbatch script, the array argument (`#SBATCH --array <values>`) specifies how many jobs to run. As an example, `#SBATCH --array 1-5` will submit 5 jobs. These will all share the same built-in variable `$SLURM_ARRAY_JOB_ID` and each will have a unique `$SLURM_ARRAY_TASK_ID` that ranges from 1 to 5.  
 
 We can use this task id to reference a specific line (i.e. file) in our todo file. The expression `awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR == line) print $0}' todo.txt` will grab the line of the todo file that corresponds with the current task id. In some cases, instead of a todo file, the submission will read from the input directory, in which case `ls $IN |` will prepend the awk statement. The same principle applies.  
 
