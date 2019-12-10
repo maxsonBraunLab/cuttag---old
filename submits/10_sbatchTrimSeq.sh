@@ -10,11 +10,11 @@
 #SBATCH --time               0-24:00                 # time (D-HH:MM)
 #SBATCH --output             trim_%A_%a.out          # Standard output
 #SBATCH --error              trim_%A_%a.err          # Standard error
-#SBATCH --array              1-60                     # sets number of jobs in array
+#SBATCH --array              1-64                     # sets number of jobs in array
 
 ### SET I/O VARIABLES
 
-IN=$mlproj/process/00_fastqs                             # Directory containing all input files. Should be one job per file
+IN=/home/groups/MaxsonLab/input-data/SETKAS_TAG_12_19/KASUMI_TAG_12_19/fastq                             # Directory containing all input files. Should be one job per file
 OUT=$mlproj/process/10_trim                              # Directory where output files should be written
 trimmomaticbin=/home/groups/MaxsonLab/software/cnrTools/dependencies/Trimmomatic-0.36
 trimmomaticjarfile=trimmomatic-0.36.jar

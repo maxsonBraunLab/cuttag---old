@@ -17,7 +17,7 @@
 #SBATCH --time               0-24:00                 # time (D-HH:MM)
 #SBATCH --output             filter_%A_%a.out           # Standard output
 #SBATCH --error              filter_%A_%a.err           # Standard error
-#SBATCH --array              1-60                     # sets number of jobs in array
+#SBATCH --array              1-32                     # sets number of jobs in array
 
 ### SET I/O VARIABLES
 
@@ -27,7 +27,7 @@ TODO=$mltool/todo/30_filterTodo.txt
 mkdir -p $OUT
 
 ### Executable
-SAMTOOLS=$BIOCODERS/Applications/samtools-1.3.1/bin/samtools
+SAMTOOLS=/home/groups/MaxsonLab/software/miniconda3/bin/samtools
 
 ### Record slurm info
 echo "SLURM_JOBID: " $SLURM_JOBID

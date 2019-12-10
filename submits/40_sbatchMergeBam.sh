@@ -8,19 +8,16 @@
 #SBATCH --mem                4000                # Memory request of 4 GB
 #SBATCH --output             mergeBam_%A_%a.out    # Standard output
 #SBATCH --error              mergeBam_%A_%a.err    # Standard error
-#SBATCH --array		     1-28
+#SBATCH --array		     1-32
 
 ### Executable
-MYBIN="/home/exacloud/lustre1/BioCoders/Applications/samtools-1.3.1/bin/samtools"
+MYBIN="/home/groups/MaxsonLab/smithb/KLHOXB_TAG_09_19/Dense_ChromHMM/bedtools2/bin/bedtools"
 
 ### Paths
-IN="$mlproj/process/30_filter"
+IN="$mlproj/process/31_bedgraph"
 OUT="$mlproj/process/40_merge"
 TODO="$mltool/todo/22_mergeTodo.csv"
 mkdir -p $OUT
-
-### Set file info
-BASE=KLHOXB_TAG_09_19
 
 ### Get file info
 printf "SLURM ARRAY TASK ID: %s\n" $SLURM_ARRAY_TASK_ID
@@ -34,9 +31,9 @@ currMARK=`echo $currINFO | awk -F ',' '{print $2}'`
 printf "Working on merging files for: %s\t%s\n" $currGRP $currMARK
 
 ## Make files
-ONE=$BASE\.$currGRP\1_$currMARK.bam
-TWO=$BASE\.$currGRP\2_$currMARK.bam
-MERGE=$BASE\.$currGRP\_$currMARK.bam
+ONE=$currGRP\1_$currMARK.bedgraph
+TWO=$currGRP\2_$currMARK.bedgraph
+MERGE=$currGRP\_$currMARK.bedgraph
 
 ## Update
 printf "\tMerging %s:\n\t\t%s\t%s\n\t\t%s\n\n" $currMARK $ONE $TWO $MERGE
@@ -47,9 +44,7 @@ TWO=$IN/$TWO
 MERGE=$OUT/$MERGE
 
 ## Build command
-cmd="$MYBIN merge \
-	$MERGE \
-	$ONE $TWO"
+cmd="$MYBIN unionbedg -i $ONE $TWO > $MERGE"
 
 ## Run
 echo $cmd
