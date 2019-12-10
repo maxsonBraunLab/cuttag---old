@@ -12,10 +12,10 @@
 #SBATCH --error              binPeak_%j.err           # Standard error
 
 ### SET I/O VARIABLES
-CLEN=/home/groups/MaxsonLab/software/ChromHMM/CHROMSIZES/mm10.txt
-CMARK=/home/groups/MaxsonLab/hortowe/tools/todo/52_cellMark_peak.txt
-IN=$mlproj/process/70_peaks/macs2.narrow
-OUT=$mlproj/process/50_binary/peak
+CLEN=/home/groups/MaxsonLab/software/ChromHMM/CHROMSIZES/hg38.txt
+CMARK=$mltool/todo/51_cellMark_bed.txt
+IN=$mlproj/process/41_seacr/relaxed
+OUT=$mlproj/process/50_binary
 
 mkdir -p $OUT
 

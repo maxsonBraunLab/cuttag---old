@@ -22,8 +22,8 @@ TODO=$mltool/todo/41_seacrTodo.txt
 mkdir -p $OUT
 
 ### Other arguments
-NORM="non"
-THRESH="relaxed"
+NORM="norm"
+THRESH="stringent"
 
 ### Record slurm info
 echo "SLURM_JOBID: " $SLURM_JOBID
@@ -40,6 +40,6 @@ DATA=$IN/$currINFO
 CTL=$IN/$CTLNAME
 
 ### Execute
-cmd="$MYBIN $DATA $CTL $NORM $THRESH $NAME"
+cmd="$MYBIN $DATA $CTL $NORM $THRESH $OUT/$NAME"
 echo $cmd
 eval $cmd
