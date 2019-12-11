@@ -17,13 +17,13 @@ MYBIN=/home/groups/MaxsonLab/software/SEACR/SEACR_1.1.sh
 
 ### SET I/O VARIABLES
 IN=$mlproj/process/31_bedgraph
-OUT=$mlproj/process/41_seacr
+OUT=$mlproj/process/41_seacr/
 TODO=$mltool/todo/41_seacrTodo.txt
 mkdir -p $OUT
 
 ### Other arguments
 NORM="norm"
-THRESH="stringent"
+THRESH="relaxed"
 
 ### Record slurm info
 echo "SLURM_JOBID: " $SLURM_JOBID
@@ -36,6 +36,7 @@ currINFO=`awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR == line) print $0}' $TODO`
 ### Set variables
 NAME=${currINFO%%.bedgraph}
 CTLNAME=${NAME%%_*}_IgG.bedgraph
+#CTLNAME=${NAME%%_*}1_IgG.bedgraph
 DATA=$IN/$currINFO
 CTL=$IN/$CTLNAME
 
