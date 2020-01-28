@@ -1,4 +1,5 @@
 #!/bin/bash
+# Jake VanCampen
 # vancampe@ohsu.edu
 # 
 # provide bowtie error dir 
@@ -15,6 +16,7 @@ then
     exit 1
 fi
 
+# handle the help flag and no args
 while getopts ":h" opt
 do 
     case ${opt} in 
@@ -54,3 +56,4 @@ for o in ${errdir}/*.out
     do
         getmetrics ${o}
 done
+
