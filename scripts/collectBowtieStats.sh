@@ -51,6 +51,7 @@ getmetrics() {
    fi
 }
 
+echo "file,totalreads,mappedreads,alignpercent"
 # get metrics for each output file
 for o in ${errdir}/*.out
     do
