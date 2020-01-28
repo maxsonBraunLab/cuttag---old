@@ -41,7 +41,8 @@ getmetrics() {
    if [ -e ${efile} ]; then
        # extract stats
        total=$(sed "s/^[ \t]*//" ${efile} | sed -n 1p | cut -f 1 -d ' ')
-       mapped=$(sed "s/^[ \t]*//" ${efile} | awk 'NR==4,NR==5 {sum+=$1}END{print sum}')           percent=$(sed "s/^[ \t]*//" ${efile} | awk 'NR==6 sum{print $1}' | sed 's/%//')
+       mapped=$(sed "s/^[ \t]*//" ${efile} | awk 'NR==4,NR==5 {sum+=$1}END{print sum}')
+       percent=$(sed "s/^[ \t]*//" ${efile} | awk 'NR==6 sum{print $1}' | sed 's/%//')
        echo "${fname},${total},${mapped},${percent}"
    else
        echo ${efile}; exit 1
