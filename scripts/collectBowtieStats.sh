@@ -45,7 +45,6 @@ getmetrics() {
        percent=$(sed "s/^[ \t]*//" ${efile} | awk 'NR==6 sum{print $1}' | sed 's/%//')
        echo "${fname},${total},${mapped},${percent}"
    else
-       echo ${efile}; exit 1
         # if there is no error file for the output
         # write NA's
         echo "${fname},NA,NA,NA" 
