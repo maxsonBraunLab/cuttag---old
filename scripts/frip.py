@@ -41,14 +41,18 @@ def get_args():
 def calculate_frip(bam,peakfile):
     '''Calculates the fraction of reads in peaks for replicate bam files.'''
     b,pkf=bam,peakfile
-    # access deeptools function to get reads in peaks
-    cr = crpb.CountReadsPerBin([b], bedFile=pkf, numberOfProcessors=12)
-    rip = cr.run()
-    total = rip.sum(axis=0)
-    # read alignments with pysam
-    b1=pysam.AlignmentFile(b)
-    # calculate fraction of reads in peaks
-    frip = float(total[0]) / b1.mapped
+    num_lines = sum(1 for line in open(peakfile))
+    if num_lines < 10:
+        frip = "NA"
+    else:
+        # access deeptools function to get reads in peaks
+        cr = crpb.CountReadsPerBin([b], bedFile=pkf, numberOfProcessors=12)
+        rip = cr.run()
+        total = rip.sum(axis=0)
+        # read alignments with pysam
+        b1=pysam.AlignmentFile(b)
+        # calculate fraction of reads in peaks
+        frip = float(total[0]) / b1.mapped
     return frip
 
 def collect_frip_data(b,p,o):    
@@ -70,6 +74,7 @@ def collect_frip_data(b,p,o):
                or you do not have permission to be at that path")
     else:
         for f in pks:
+            
             # calculate values
             pf=os.path.basename(f)
             smpl=pf.split('.')[0].split('_')[0]
